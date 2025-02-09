@@ -1,0 +1,147 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+header {
+  p {
+    color: #8e8e8e;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.game-status {
+  min-width: 350px;
+  padding-block: 0.5rem;  
+  font-size: 0.87rem;
+  text-align: center;
+  
+  background-color: #10A95B;
+
+  h2, p {
+    margin: 0;
+    font-weight: 700;
+  }
+}
+
+.lang-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+
+  max-width: 350px;
+
+  padding-top: 12px;
+
+  span {
+    padding: 4px 8px;
+    margin: 0 2px;
+    border-radius: 4px;
+  }
+}
+
+section.word {
+  margin-top: 12px;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  justify-content: center;
+
+  span {
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    font-weight: 800;
+
+    padding: 8px;
+
+    border-bottom: 3px solid #8e8e8e;
+
+    height: 24px;
+    width: 24px;
+    
+    background-color: #213547;
+  }
+}
+
+section.keyboard {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  max-width: 520px;
+  margin: 0 auto;
+
+  button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    
+    /* Align middle row (starts at 2nd column) */
+    &:nth-child(11) { grid-column-start: 2; }
+    /* Align bottom row (starts at 3rd column) */
+    &:nth-child(20) { grid-column-start: 3; }
+
+    text-transform: uppercase;
+    font-size: 1.25rem;
+
+    background-color: #FCBA29;
+    border: 1px solid #D7D7D7;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #242424;
+  }
+}
+
+section.new-game {
+  margin-top: 24px;
+  button {
+    max-width: 320px;
+    min-width: 256px;
+    height: 2.25rem;
+    background-color: rgb(0, 195, 255);
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #242424;
+    font-weight: 800;
+    font-size: 1.25rem;
+  }
+}
+ 
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}
