@@ -2,7 +2,7 @@ import { useState } from 'react'
 import clsx from 'clsx';
 import './App.css'
 import { languages } from './languages'
-import { GameOver } from './components/game-over';
+import { GameStatus } from './components/game-status';
 
 /* helper function to make sure always the word is lowercase */
 function makeWord(value: string) {
@@ -32,9 +32,7 @@ function App() {
         <h1>Assembly: End Game</h1>
         <p>Guess the word in 8 attempts to keep the programming world safe from Assembly!</p>
       </header>
-      <GameOver isGameOver={isGameOver} 
-                isGameWon={isGameWon} 
-                isGameLost={isGameLost} />
+      <GameStatus isGameWon={isGameWon} isGameLost={isGameLost} />
       <section className="lang-list">
         {
           languages.map((item, idx) => {
@@ -72,6 +70,9 @@ function App() {
 
             return (
               <button key={letter} 
+                      disabled={isGameOver}
+                      aria-disabled={isGameOver}
+                      aria-label={`letter ${letter}`}
                       className={clsx({correct:isCorrect, wrong: isWrong})}
                       onClick={() => addGuessedLetter(letter)}>
                 {letter}
@@ -80,9 +81,9 @@ function App() {
           })
         }
       </section>
-      {isGameOver && <section className='new-game'>
-        <button>New Game</button>
-      </section>}
+      <section className={clsx('new-game', isGameOver && 'show')}>
+        {isGameOver && <button>New Game</button>}
+      </section>
     </main>
   )
 }

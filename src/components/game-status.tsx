@@ -1,15 +1,18 @@
 import clsx from "clsx";
 
-export function GameOver({ 
-    isGameOver, 
+export function GameStatus({  
     isGameWon, 
     isGameLost 
 }: Record<string, boolean>) {
+    const isGameOver = (isGameLost || isGameWon);
+    const statuses = {
+        lost: isGameLost,
+        won: isGameWon
+    };
     return (
-        <section className={clsx("game-status", isGameOver && "game-over", {
-            lost: isGameLost,
-            won: isGameWon
-        })}>
+        <section className={clsx("game-status", isGameOver && 'game-over', statuses)}
+                aria-live="polite"
+                role="status">
             {isGameWon ? (
                 <>
                     <h2>You win!</h2>

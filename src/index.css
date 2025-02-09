@@ -48,9 +48,8 @@ main {
   }
 }
 
-.game-status.game-over {
+.game-over {
   visibility: visible;
-
 }
 
 .lost {
@@ -158,9 +157,15 @@ section.keyboard {
   button.wrong {
     background-color: #EC5D49;
   }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 section.new-game {
+  visibility: hidden;
   margin-top: 24px;
   button {
     max-width: 320px;
@@ -174,6 +179,10 @@ section.new-game {
     font-weight: 800;
     font-size: 1.25rem;
   }
+}
+
+section.new-game.show {
+  visibility: visible;
 }
  
 @media (prefers-color-scheme: light) {
