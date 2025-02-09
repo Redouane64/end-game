@@ -1,23 +1,32 @@
 import { useState } from 'react'
 import clsx from 'clsx';
+import Confetti from 'react-confetti';
 import './App.css'
 import { languages } from './languages'
 import { GameStatus } from './components/game-status';
+import { words } from './words';
+import GameHeader from './components/game-header';
+import Languages from './components/languages';
+import Words from './components/words';
+import Keyboard from './components/keyboard';
 
 /* helper function to make sure always the word is lowercase */
 function makeWord(value: string) {
   return value.toLowerCase();
 }
 
+function getRandomWord() {
+  return words[Math.floor(Math.random() * words.length)]
+}
+
 function App() {
-  const [word, setWord] = useState(makeWord('Dog'));
+  const [word, setWord] = useState(() => makeWord(getRandomWord()));
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
   const wrongGuessesCount = guessedLetters.filter((l) => !word.includes(l)).length;
   const isGameWon = word.split("").every((l) => guessedLetters.includes(l));
   const isGameLost = wrongGuessesCount >= languages.length - 1;
   const isGameOver = isGameWon || isGameLost;
-  const alphabets = "abcdefghijklmnopqrstuvwxyz";
 
   function addGuessedLetter(letter: string) {
     setGuessedLetters((previousGuessedLetters) => {
@@ -26,63 +35,28 @@ function App() {
     });
   }
 
+  function resetGame() {
+    setWord(getRandomWord());
+    setGuessedLetters([])
+  }
+
   return (
     <main>
-      <header>
-        <h1>Assembly: End Game</h1>
-        <p>Guess the word in 8 attempts to keep the programming world safe from Assembly!</p>
-      </header>
-      <GameStatus isGameWon={isGameWon} isGameLost={isGameLost} />
-      <section className="lang-list">
-        {
-          languages.map((item, idx) => {
-            const isLanguageLost = idx < wrongGuessesCount;
-            const className = clsx(isLanguageLost && "lost");
-
-            const defaultStyle = {
-              backgroundColor: item.backgroundColor, 
-              color: item.color
-            };
-
-            return (<span key={idx} 
-                          className={className} 
-                          style={defaultStyle}>{item.name}</span>)
-          })
-        }
-      </section>
-      <section className='word'>
-        {
-          Array.from(word).map((letter, idx) => {
-            if (guessedLetters.includes(letter)) {
-              return (<span key={idx}>{letter}</span>);
-            }
-
-            return (<span key={idx}></span>);
-          }
-        )}
-      </section>
-      <section className="keyboard">
-        {Array.from(alphabets).map(
-          (letter) => {
-            const isGuessed = guessedLetters.includes(letter);
-            const isCorrect = isGuessed && word.includes(letter);
-            const isWrong = isGuessed && !word.includes(letter);
-
-            return (
-              <button key={letter} 
-                      disabled={isGameOver}
-                      aria-disabled={isGameOver}
-                      aria-label={`letter ${letter}`}
-                      className={clsx({correct:isCorrect, wrong: isWrong})}
-                      onClick={() => addGuessedLetter(letter)}>
-                {letter}
-              </button>
-            )
-          })
-        }
-      </section>
+      {
+        isGameWon && <Confetti recycle={false} numberOfPieces={1000} />
+      }
+      <GameHeader />
+      <GameStatus isGameWon={isGameWon} 
+                  isGameLost={isGameLost} />
+      <Languages wrongGuessesCount={wrongGuessesCount} />
+      <Words word={word} 
+             isGameLost={isGameLost} 
+             guessedLetters={guessedLetters} />
+      <Keyboard guessedLetters={guessedLetters} 
+                word={word} addGuessedLetter={addGuessedLetter} 
+                isGameOver={isGameOver} />
       <section className={clsx('new-game', isGameOver && 'show')}>
-        {isGameOver && <button>New Game</button>}
+        {isGameOver && <button onClick={resetGame}>New Game</button>}
       </section>
     </main>
   )
