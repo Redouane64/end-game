@@ -4,3 +4,167 @@
   padding: 2rem;
   text-align: center;
 }
+
+header {
+  p {
+    color: #8e8e8e;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.game-status {
+  visibility: hidden;
+
+  min-width: 380px;
+  padding-block: 0.5rem;  
+  font-size: 0.87rem;
+  text-align: center;
+
+  h2, p {
+    margin: 0;
+    font-weight: 700;
+  }
+}
+
+.game-over {
+  visibility: visible;
+}
+
+.lost {
+  background-color: #fc1818;
+  color: #ffffff;
+}
+
+.won {
+  background-color: #10A95B;
+}
+
+.lang-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+
+  max-width: 350px;
+
+  padding-top: 12px;
+
+  span {
+    padding: 4px 8px;
+    margin: 0 2px;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .lost::before {
+    content: "💀";
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    font-size: 0.85rem;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+section.word {
+  margin-top: 12px;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  justify-content: center;
+
+  span {
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    font-weight: 800;
+
+    padding: 8px;
+
+    border-bottom: 3px solid #8e8e8e;
+
+    height: 24px;
+    width: 24px;
+    
+    background-color: #213547;
+  }
+}
+
+section.keyboard {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+  max-width: 520px;
+  margin: 0 auto;
+
+  button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    
+    /* Align middle row (starts at 2nd column) */
+    &:nth-child(11) { grid-column-start: 2; }
+    /* Align bottom row (starts at 3rd column) */
+    &:nth-child(20) { grid-column-start: 3; }
+
+    text-transform: uppercase;
+    font-size: 1.25rem;
+
+    background-color: #FCBA29;
+    border: 1px solid #D7D7D7;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #242424;
+  }
+
+  button.correct {
+    background-color: #10A95B;
+  }
+
+  button.wrong {
+    background-color: #EC5D49;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+section.new-game {
+  visibility: hidden;
+  margin-top: 24px;
+  button {
+    max-width: 320px;
+    min-width: 256px;
+    height: 2.25rem;
+    background-color: rgb(0, 195, 255);
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #242424;
+    font-weight: 800;
+    font-size: 1.25rem;
+  }
+}
+
+section.new-game.show {
+  visibility: visible;
+}

@@ -45,7 +45,10 @@ function App() {
       {
         isGameWon && <Confetti recycle={false} numberOfPieces={1000} />
       }
-      <GameHeader />
+      <header>
+        <h1>Assembly: End Game</h1>
+        <p>Guess the word in 8 attempts to keep the programming world safe from Assembly!</p>
+      </header>
       <GameStatus isGameWon={isGameWon} 
                   isGameLost={isGameLost} />
       <Languages wrongGuessesCount={wrongGuessesCount} />
@@ -53,7 +56,8 @@ function App() {
              isGameLost={isGameLost} 
              guessedLetters={guessedLetters} />
       <Keyboard guessedLetters={guessedLetters} 
-                word={word} addGuessedLetter={addGuessedLetter} 
+                word={word} 
+                addGuessedLetter={addGuessedLetter} 
                 isGameOver={isGameOver} />
       <section className={clsx('new-game', isGameOver && 'show')}>
         {isGameOver && <button onClick={resetGame}>New Game</button>}
